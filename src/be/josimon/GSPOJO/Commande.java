@@ -9,6 +9,7 @@ import java.util.Set;
  * Classe Commande qui corresponds à la commande d'un client 
  */
 public class Commande {
+	private int idCommande;
 	private String modePayement;
 	private String modeLivraison;
 	private double coutTotal;

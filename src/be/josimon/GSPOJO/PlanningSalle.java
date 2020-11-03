@@ -9,6 +9,7 @@ import java.util.Date;
  * 
  */
 public class PlanningSalle {
+	private int idPlanningSalle;
 	private Date dateDébutReservation;
 	private Date dateFinReservation;
 }

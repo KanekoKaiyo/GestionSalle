@@ -10,6 +10,7 @@ import java.util.Date;
  * 
  */
 public class Representation {
+	private int idReprésentation;
 	private Date date;
 	private LocalTime heureDebut;
 	private LocalTime heureFin;

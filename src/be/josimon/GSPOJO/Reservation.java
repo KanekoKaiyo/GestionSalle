@@ -6,6 +6,7 @@ package be.josimon.GSPOJO;
  * 
  */
 public class Reservation {
+	private int idRéservation;
 	private double acompte;
 	private double solde;
 	private String statut;

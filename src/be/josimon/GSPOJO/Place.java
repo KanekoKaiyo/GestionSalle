@@ -6,6 +6,7 @@ package be.josimon.GSPOJO;
  * 
  */
 public class Place {
+	private int idPlace;
 	private int numPlace;
 	private double prix;
 }

@@ -6,6 +6,7 @@ package be.josimon.GSPOJO;
  * Classe Configuration corresponds au possibilité d'aménagement de la salle : debout, assis concert/cirque
  */
 public class Configuration {
+	private int idConfiguration;
 	private String type;
 	private String description;
 }

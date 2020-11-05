@@ -8,9 +8,7 @@ import be.josimon.GSPOJO.Client;
 
 /**
  * @author Simon Jonathan
- * @version 0.2
- * 
- * 
+ * @version 0.2 
  */
 public class ClientDAO extends DAO<Client>{
 
@@ -44,19 +42,18 @@ public class ClientDAO extends DAO<Client>{
 	}
 
 	@Override
-	public boolean Update(Client obj) {
-		return false;
+	public Client Update(Client obj) {
+		return new Client();
 	}
 
-	@Override
-	public Client Find(int id) {
-		return null;
-	}
 
 	@Override
 	public List<Client> getAll() {
 		return null;
 	}
-	
 
+	@Override
+	public Client Find(Client obj) {
+		return null;
+	}
 }

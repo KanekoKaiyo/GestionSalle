@@ -78,7 +78,6 @@ public abstract class Personne {
 	
 	public Personne(String nom, String prenom, String rue, int numRue, int cp, String ville,
 			String email, String motDePasse) {
-		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.rue = rue;

@@ -11,7 +11,7 @@ public abstract class DAO<T> {
 	}	
 	 public abstract boolean Create(T obj);
 	 public abstract boolean Delete(T obj);
-	 public abstract boolean Update(T obj);
-	 public abstract T Find(int id);
+	 public abstract T Update(T obj);
+	 public abstract T Find(T obj);
 	 public abstract List<T> getAll();
 }

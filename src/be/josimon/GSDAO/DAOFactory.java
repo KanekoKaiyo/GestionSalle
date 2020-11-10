@@ -7,6 +7,7 @@ import be.josimon.GSPOJO.Artiste;
 import be.josimon.GSPOJO.Client;
 import be.josimon.GSPOJO.Gestionnaire;
 import be.josimon.GSPOJO.Organisateur;
+import be.josimon.GSPOJO.Personne;
 
 public class DAOFactory extends AbstractDAOFactory{
 	
@@ -26,5 +27,9 @@ public class DAOFactory extends AbstractDAOFactory{
 
 	public DAO<Gestionnaire> getGestionnaireDAO() {
 		return new GestionnaireDAO(conn);
+	}
+	
+	public DAO<Personne> getPersonneDAO() {
+		return new PersonneDAO(conn);
 	}
 }

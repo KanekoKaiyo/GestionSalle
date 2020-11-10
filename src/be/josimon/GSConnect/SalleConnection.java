@@ -13,7 +13,9 @@ public class SalleConnection {
 	private SalleConnection() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			instance = DriverManager.getConnection("jdbc:oracle:thin:@193.190.64.10:1522:XEPDB1","student03_01","080818");
+			String connectionString = "jdbc:oracle:thin:student03_01/080818@193.190.64.10:1522/XEPDB1";
+			instance = DriverManager.getConnection(connectionString);
+			// instance = DriverManager.getConnection("jdbc:oracle:thin:@193.190.64.10:1522:XEPDB1","student03_01","080818");
 		} catch(ClassNotFoundException ex) {
 			JOptionPane.showMessageDialog(null, "Classe de driver introuvable" + ex.getMessage());
 			System.exit(0);

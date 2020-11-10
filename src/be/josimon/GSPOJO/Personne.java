@@ -8,7 +8,7 @@ import be.josimon.hash.SHA;
  * 
  * 
  */
-public abstract class Personne {
+public class Personne {
 	// Variable
 	protected int idPersonne;
 	protected String nom;
@@ -17,6 +17,7 @@ public abstract class Personne {
 	protected int numRue;
 	protected int cp;
 	protected String ville;
+	protected String role;
 	protected String email;
 	protected String motDePasse;
 	
@@ -72,6 +73,15 @@ public abstract class Personne {
 	
 	public String getMotDePasse() {
 		return motDePasse;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = SHA.hash(motDePasse);
 	}
 	// Constructor
 	public Personne() { }

@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 import be.josimon.GSPOJO.Client;
 import be.josimon.GSPOJO.Organisateur;
+import be.josimon.GSPOJO.Personne;
+import be.josimon.GSDAO.AbstractDAOFactory;
+import be.josimon.GSDAO.DAO;
 import be.josimon.GSPOJO.Artiste;
 import be.josimon.GSPOJO.Gestionnaire;
 
@@ -39,7 +42,8 @@ public class Accueil extends JFrame {
 	private JTextField TFnum;
 	private JTextField TFcp;
 	private JTextField TFville;
-
+	// variable dao
+	AbstractDAOFactory adf = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	/**
 	 * Launch the application.
 	 */
@@ -55,7 +59,6 @@ public class Accueil extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -68,6 +71,7 @@ public class Accueil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		buttonGroup.clearSelection();
+		JFrame instance = this;
 		// Label titre du haut
 		JLabel lblNewLabel = new JLabel("Gestion de salle : Bosquet Wallon");
 		lblNewLabel.setBounds(400, 50, 500, 40);
@@ -94,10 +98,6 @@ public class Accueil extends JFrame {
 		PFco = new JPasswordField();
 		PFco.setBounds(200, 160, 200, 30);
 		panel.add(PFco);
-		// Bouton Connexion
-		JButton btnco = new JButton("Connexion");
-		btnco.setBounds(300, 201, 100, 30);
-		panel.add(btnco);
 		// lb email
 		JLabel lblNewLabel_3 = new JLabel("Email :");
 		lblNewLabel_3.setFont(new Font("Serif", Font.PLAIN, 18));
@@ -108,7 +108,6 @@ public class Accueil extends JFrame {
 		lblNewLabel_4.setFont(new Font("Serif", Font.PLAIN, 18));
 		lblNewLabel_4.setBounds(81, 160, 109, 30);
 		panel.add(lblNewLabel_4);
-
 		// Panel de droite
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.LIGHT_GRAY);
@@ -213,15 +212,13 @@ public class Accueil extends JFrame {
 		JLabel lblNewLabel_10 = new JLabel("Ville :");
 		lblNewLabel_10.setBounds(44, 328, 46, 14);
 		panel_1.add(lblNewLabel_10);
-
 		// Label Message d'information
 		JLabel lblsys = new JLabel("");
-		lblsys.setFont(new Font("Serif", Font.PLAIN, 26));
+		lblsys.setFont(new Font("Serif", Font.PLAIN, 13));
 		lblsys.setBackground(Color.DARK_GRAY);
 		lblsys.setForeground(Color.RED);
 		lblsys.setBounds(30, 572, 1160, 79);
 		contentPane.add(lblsys);
-
 		// Bouton inscription
 		JButton btnins = new JButton("Inscription");
 		btnins.addActionListener(new ActionListener() {
@@ -262,6 +259,13 @@ public class Accueil extends JFrame {
 																Integer.parseInt(TFcp.getText()), TFville.getText(),
 																TFinsmail.getText(),
 																String.valueOf(PFins.getPassword()));
+														// Création de l'enregistrement dans la DB
+														DAO<Client> clientDAO = adf.getClientDAO();
+														if(clientDAO.Create(client) == true) {
+															lblsys.setText("Le compte a bien été créer, vous pouvez vous connecter");
+														} else {
+															lblsys.setText("Une erreur est survenue lors de la création du compte, contacter un Administrateur si le problème persiste.");
+														}
 													} else if (rdorga.isSelected() == true) {
 														// Création objet
 														Organisateur orga = new Organisateur(TFnom.getText(), TFprenom.getText(),
@@ -269,6 +273,13 @@ public class Accueil extends JFrame {
 																Integer.parseInt(TFcp.getText()), TFville.getText(),
 																TFinsmail.getText(),
 																String.valueOf(PFins.getPassword()));
+														// Création de l'enregistrement dans la DB
+														DAO<Organisateur> orgaDAO = adf.getOrganisateurDAO();
+														if(orgaDAO.Create(orga) == true) {
+															lblsys.setText("Le compte a bien été créer, vous pouvez vous connecter");
+														} else {
+															lblsys.setText("Une erreur est survenue lors de la création du compte, contacter un Administrateur si le problème persiste.");
+														}
 													} else if (rdgest.isSelected() == true) {
 														// Création objet
 														Gestionnaire gest = new Gestionnaire(TFnom.getText(), TFprenom.getText(),
@@ -276,6 +287,13 @@ public class Accueil extends JFrame {
 																Integer.parseInt(TFcp.getText()), TFville.getText(),
 																TFinsmail.getText(),
 																String.valueOf(PFins.getPassword()));
+														// Création de l'enregistrement dans la DB
+														DAO<Gestionnaire> gestDAO = adf.getGestionnaireDAO();
+														if(gestDAO.Create(gest) == true) {
+															lblsys.setText("Le compte a bien été créer, vous pouvez vous connecter");
+														} else {
+															lblsys.setText("Une erreur est survenue lors de la création du compte, contacter un Administrateur si le problème persiste.");
+														}
 													} else if (rdart.isSelected() == true) {
 														// Création objet
 														Artiste art = new Artiste(TFnom.getText(), TFprenom.getText(),
@@ -283,10 +301,16 @@ public class Accueil extends JFrame {
 																Integer.parseInt(TFcp.getText()), TFville.getText(),
 																TFinsmail.getText(),
 																String.valueOf(PFins.getPassword()));
+														// Création de l'enregistrement dans la DB
+														DAO<Artiste> artDAO = adf.getArtisteDAO();
+														if(artDAO.Create(art) == true) {
+															lblsys.setText("Le compte a bien été créer, vous pouvez vous connecter");
+														} else {
+															lblsys.setText("Une erreur est survenue lors de la création du compte, contacter un Administrateur si le problème persiste.");
+														}
 													} else {
 														lblsys.setText("Il faut choisir un rôle pour continuer");
 													}
-													lblsys.setText("TestOK");
 												} else {
 													lblsys.setText(
 															"Le champ ville ne peut contenir que des caractères et faire 40 de long");
@@ -317,7 +341,6 @@ public class Accueil extends JFrame {
 						// Affichage d'un message d'erreur
 						lblsys.setText("Le format de l'email n'est pas bon");
 					}
-
 				} else {
 					// Affichage d'un message d'erreur
 					lblsys.setText("Veillez remplir tout les champs pour continuer votre inscription");
@@ -326,5 +349,82 @@ public class Accueil extends JFrame {
 		});
 		btnins.setBounds(375, 299, 100, 30);
 		panel_1.add(btnins);
+		// Bouton Connexion
+		JButton btnco = new JButton("Connexion");
+		btnco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblsys.setText("");
+				// Action lors de la l'enclenchement du bouton Connexion :
+				if(!TFcomail.getText().isEmpty() && !String.valueOf(PFco.getPassword()).isEmpty()) {
+					// si les champs sont remplie on continue
+					if(Regex.verifMail(TFcomail.getText()) == true) {
+						if(Regex.verifPass(String.valueOf(PFco.getPassword())) == true) {
+							// Si les formats email et mot de passe sont correcte on va pouvoir tester dans la DL si ils existent
+							Personne pr = new Personne();
+							pr.setEmail(TFcomail.getText());
+							pr.setMotDePasse(String.valueOf(PFco.getPassword()));
+							DAO<Personne> personneDAO = adf.getPersonneDAO();
+							Personne prauth = personneDAO.Find(pr);
+							if(prauth != null) {
+								// la combinaison est bonne alors on peu continuer, il faut connaitre le role de l'utilisateur pour savoir ou le rediriger
+								if(prauth.getRole().equals("Client")) {
+									// log cloent
+									Client client = new Client(prauth);
+									try {
+										ClAcc frame2 = new ClAcc(client);
+										instance.dispose();
+										frame2.setVisible(true);
+									} catch(Exception ex) {
+										ex.printStackTrace();
+									}
+								} else if(prauth.getRole() == "Artiste") {
+									// log artiste
+									Artiste artiste = new Artiste(prauth);
+									try {
+										ArtAcc frame2 = new ArtAcc(artiste);
+										instance.dispose();
+										frame2.setVisible(true);
+									} catch(Exception ex) {
+										ex.printStackTrace();
+									}
+								} else if(prauth.getRole() == "Organisateur") {
+									// log organisateur
+									Organisateur orga = new Organisateur(prauth);
+									try {
+										OrgAcc frame2 = new OrgAcc(orga);
+										instance.dispose();
+										frame2.setVisible(true);
+									} catch(Exception ex) {
+										ex.printStackTrace();
+									}
+								} else if(prauth.getRole() == "Gestionnaire") {
+									// log gestionnaire
+									Gestionnaire gest = new Gestionnaire(prauth);
+									try {
+										GesAcc frame2 = new GesAcc(gest);
+										instance.dispose();
+										frame2.setVisible(true);
+									} catch(Exception ex) {
+										ex.printStackTrace();
+									}
+								} else {
+									lblsys.setText("Un problèmes est survenue avec votre compte, contactez un administrateur.");
+								}
+							} else {
+								lblsys.setText("L'email ou le mot de passe est incorrecte");
+							}
+						} else {
+							lblsys.setText("Le format de mot de passe n'est pas bon, il faut entre 8 et 20 caractères, une majuscule, une minuscule, un chiffre et un caractére spécial ( sauf - et _ ) pour continuer");
+						}
+					} else {
+						lblsys.setText("Le format de l'email n'est pas bon.");
+					}
+				} else {
+					lblsys.setText("Remplissez les gens pour vous connecter.");
+				}
+			}
+		});
+		btnco.setBounds(300, 201, 100, 30);
+		panel.add(btnco);
 	}
 }

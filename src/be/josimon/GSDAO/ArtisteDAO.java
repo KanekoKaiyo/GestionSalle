@@ -1,6 +1,7 @@
 package be.josimon.GSDAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.List;
 
 import be.josimon.GSPOJO.Artiste;
@@ -19,7 +20,23 @@ public class ArtisteDAO extends DAO<Artiste> {
 
 	@Override
 	public boolean Create(Artiste obj) {
-		return false;
+		try {
+			String sql = "INSERT INTO Personne(nom,prenom,rue,numRue,cp,ville,discriminator,email,motDePasse) VALUES('" 
+					+ obj.getNom() + "','" 
+					+ obj.getPrenom() + "','" 
+					+ obj.getRue() + "','" 
+					+ obj.getNumRue() + "','"
+					+ obj.getCp() + "','" 
+					+ obj.getVille() + "','"
+					+ "Artiste" + "','"
+					+ obj.getEmail() + "','" 
+					+ obj.getMotDePasse() + "')";
+			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
+			return true;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

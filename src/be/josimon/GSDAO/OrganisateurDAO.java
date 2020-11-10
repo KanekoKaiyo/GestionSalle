@@ -1,6 +1,7 @@
 package be.josimon.GSDAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.List;
 
 import be.josimon.GSPOJO.Organisateur;
@@ -13,7 +14,23 @@ public class OrganisateurDAO extends DAO<Organisateur> {
 
 	@Override
 	public boolean Create(Organisateur obj) {
-		return false;
+		try {
+			String sql = "INSERT INTO Personne(nom,prenom,rue,numRue,cp,ville,discriminator,email,motDePasse) VALUES('" 
+					+ obj.getNom() + "','" 
+					+ obj.getPrenom() + "','" 
+					+ obj.getRue() + "','" 
+					+ obj.getNumRue() + "','"
+					+ obj.getCp() + "','" 
+					+ obj.getVille() + "','"
+					+ "Organisateur" + "','"
+					+ obj.getEmail() + "','" 
+					+ obj.getMotDePasse() + "')";
+			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
+			return true;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

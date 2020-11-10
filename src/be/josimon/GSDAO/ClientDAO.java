@@ -19,14 +19,15 @@ public class ClientDAO extends DAO<Client>{
 	@Override
 	public boolean Create(Client obj) {
 		try {
-			String sql = "INSERT INTO Personne(nom,prenom,rue,numRue,cp,ville,email,motDePasse) VALUES('" 
-					+ obj.getNom() + "'," 
-					+ obj.getPrenom() + "'," 
-					+ obj.getRue() + "'," 
-					+ obj.getNumRue() + "',"
-					+ obj.getCp() + "'," 
-					+ obj.getVille() + "',"
-					+ obj.getEmail() + "'," 
+			String sql = "INSERT INTO Personne(nom,prenom,rue,numRue,cp,ville,discriminator,email,motDePasse) VALUES('" 
+					+ obj.getNom() + "','" 
+					+ obj.getPrenom() + "','" 
+					+ obj.getRue() + "','" 
+					+ obj.getNumRue() + "','"
+					+ obj.getCp() + "','" 
+					+ obj.getVille() + "','"
+					+ "Client" + "','"
+					+ obj.getEmail() + "','" 
 					+ obj.getMotDePasse() + "')";
 			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 			return true;

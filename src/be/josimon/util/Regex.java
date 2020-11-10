@@ -7,13 +7,13 @@ public class Regex {
 	private static String regexmail = "^\\S+@\\S+\\.\\S+$";
 	private static Pattern patternmail = Pattern.compile(regexmail);
 	
-	private static String regexlettre = "^[a-zA-Z]+$";
+	private static String regexlettre = "^[a-zA-Z ]+$";
 	private static Pattern patternlettre = Pattern.compile(regexlettre);
 	
 	private static String regexcp = "^[0-9]{4}$";
 	private static Pattern patterncp = Pattern.compile(regexcp);
 	
-	private static String regexnum = "^[0-9]{3}$";
+	private static String regexnum = "^[0-9]{0,3}$";
 	private static Pattern patternnum = Pattern.compile(regexnum);
 	
 	private static String regexpass = "^.(?=.{8,})((?=.*[!@#$%^&*()=+{};:,<.>]){1,})((?=.*\\\\\\\\d){0,})((?=.*[a-z]){0,1})((?=.*[A-Z]){0,1}).*$";

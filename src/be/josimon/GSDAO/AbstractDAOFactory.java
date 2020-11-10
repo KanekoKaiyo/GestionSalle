@@ -1,10 +1,6 @@
 package be.josimon.GSDAO;
 
-import be.josimon.GSPOJO.Artiste;
-import be.josimon.GSPOJO.Client;
-import be.josimon.GSPOJO.Gestionnaire;
-import be.josimon.GSPOJO.Organisateur;
-import be.josimon.GSPOJO.Personne;
+import be.josimon.GSPOJO.*;
 
 public abstract class AbstractDAOFactory {
 	public static final int DAO_FACTORY = 0;
@@ -18,6 +14,11 @@ public abstract class AbstractDAOFactory {
 	public abstract DAO<Gestionnaire> getGestionnaireDAO();
 	
 	public abstract DAO<Personne> getPersonneDAO();
+	
+	public abstract DAO<Reservation> getReservationDAO();
+	
+	public abstract DAO<PlanningSalle> getPlanningSalleDAO();
+	
 	
 	public static AbstractDAOFactory getFactory(int type){
 		switch(type){

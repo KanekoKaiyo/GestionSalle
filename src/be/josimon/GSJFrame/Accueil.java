@@ -71,6 +71,7 @@ public class Accueil extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		buttonGroup.clearSelection();
+		setTitle("Connexion et Inscription au Bosquet Wallon");
 		JFrame instance = this;
 		// Label titre du haut
 		JLabel lblNewLabel = new JLabel("Gestion de salle : Bosquet Wallon");

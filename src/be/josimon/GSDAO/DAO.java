@@ -14,4 +14,5 @@ public abstract class DAO<T> {
 	 public abstract T Update(T obj);
 	 public abstract T Find(T obj);
 	 public abstract List<T> getAll();
+	 public abstract List<T> getAll(T obj);
 }

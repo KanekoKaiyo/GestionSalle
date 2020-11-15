@@ -2,8 +2,11 @@ package be.josimon.GSDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
+import be.josimon.GSPOJO.Organisateur;
 import be.josimon.GSPOJO.Reservation;
 
 public class ReservationDAO extends DAO<Reservation>{
@@ -14,7 +17,7 @@ public class ReservationDAO extends DAO<Reservation>{
 	@Override
 	public boolean Create(Reservation obj) {
 		try {
-			String sql = "INSERT INTO Reservation VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO Reservation(acompte,solde,statut,prix,idPersonne) VALUES(?,?,?,?,?)";
 			PreparedStatement pS = this.connect.prepareStatement(sql);
 			pS.setDouble(1,obj.getAcompte());
 			pS.setDouble(2,obj.getSolde());
@@ -41,10 +44,56 @@ public class ReservationDAO extends DAO<Reservation>{
 	}
 	@Override
 	public Reservation Find(Reservation obj) {
-		return null;
+		Reservation res = new Reservation();
+		try {
+			String sql = "SELECT * FROM Reservation WHERE idPersonne = ? AND Statut = ? AND Solde = ? AND Acompte = ?";
+			PreparedStatement ps = this.connect.prepareStatement(sql);
+			ps.setInt(1,obj.getOrga().getIdPersonne());
+			ps.setString(2, obj.getStatut());
+			ps.setDouble(3, obj.getSolde());
+			ps.setDouble(4, obj.getAcompte());
+			
+			ResultSet result = ps.executeQuery();
+			
+			if(result.next()) {				
+				res.setIdRéservation(result.getInt("idReservation"));
+				res.setAcompte(result.getDouble("acompte"));
+				res.setSolde(result.getDouble("solde"));
+				res.setPrix(result.getDouble("prix"));
+			}
+			
+			return res;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 	@Override
 	public List<Reservation> getAll() {
-		return null;
+		List<Reservation> list = new ArrayList<Reservation>();
+		try {
+			String sql = "SELECT * FROM Reservation";
+			PreparedStatement pS = this.connect.prepareStatement(sql);
+			ResultSet result = pS.executeQuery();
+			while(result.next()) {
+				Reservation res = new Reservation();
+				Organisateur orga = new Organisateur();
+				orga.setIdPersonne(result.getInt("idPersonne"));
+				
+				res.setIdRéservation(result.getInt("idReservation"));
+				res.setAcompte(result.getDouble("acompte"));
+				res.setSolde(result.getDouble("solde"));
+				res.setStatut(result.getString("statut"));
+				res.setPrix(result.getDouble("prix"));
+				res.setOrga(orga);
+				
+				list.add(res);
+			}
+			
+			return list;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }

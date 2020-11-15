@@ -19,5 +19,6 @@
 	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar" sourcepath="C:/dev/java/eclipse-2020.09/plugins/com.ibm.icu_67.1.0.v20200706-1749.jar"/>
 	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/plugins/org.eclipse.ui.forms_3.10.0.v20200727-0948.jar" sourcepath="C:/dev/java/eclipse-2020.09/plugins/org.eclipse.ui.forms_3.10.0.v20200727-0948.jar"/>
 	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/workspace/GestionSalle/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/workspace/GestionSalle/jcalendar-1.1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

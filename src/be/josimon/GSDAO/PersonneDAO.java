@@ -6,12 +6,8 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-import be.josimon.GSPOJO.Artiste;
 import be.josimon.GSPOJO.Client;
 import be.josimon.GSPOJO.Personne;
-import be.josimon.GSPOJO.Gestionnaire;
-import be.josimon.GSPOJO.Organisateur;
 
 public class PersonneDAO extends DAO<Personne>{	
 	public PersonneDAO(Connection conn) {

@@ -75,10 +75,15 @@ public class Reservation {
 		else 
 			return false;				
 	}
-	public boolean createPlanningSalle(Date ddébut,Date dfin) {
+	public PlanningSalle emptySalle() {
+		PlanningSalle ps = new PlanningSalle();
+		ps.setReservation(this);
+		return ps;
+	}
+	public boolean createPlanningSalle(Date ddebut,Date dfin) {
 		// La reservation va créer un planning avant de le mettre dans la db
 		try {
-			PlanningSalle plSa = new PlanningSalle(ddébut,dfin,this);
+			PlanningSalle plSa = new PlanningSalle(ddebut,dfin,this);
 			// On va l'ajouter dans la base de donnée si c'est possible
 			boolean test = plSa.CreatePlanningSalle();
 			if(test) 
@@ -88,5 +93,20 @@ public class Reservation {
 		} catch (Exception ex) {
 			return false;
 		}
+	}
+	public void FindiD() {
+		// Fonction pour fixé l'id de l'objet aprés sa création
+		try {
+			DAO<Reservation> resDAO = adf.getReservationDAO();
+			this.setIdRéservation(resDAO.Find(this).getIdRéservation());
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	public Object[][] getReservation() {
+		Object[][] allRes = new Object[2][100];
+		PlanningSalle pls = this.emptySalle();
+		allRes = pls.getAllReservation();
+		return allRes;
 	}
 }

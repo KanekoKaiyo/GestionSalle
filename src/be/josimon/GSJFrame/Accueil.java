@@ -369,7 +369,7 @@ public class Accueil extends JFrame {
 							if(prauth != null) {
 								// la combinaison est bonne alors on peu continuer, il faut connaitre le role de l'utilisateur pour savoir ou le rediriger
 								if(prauth.getRole().equals("Client")) {
-									// log cloent
+									// log client
 									Client client = new Client(prauth);
 									try {
 										ClAcc frame2 = new ClAcc(client);
@@ -378,7 +378,7 @@ public class Accueil extends JFrame {
 									} catch(Exception ex) {
 										ex.printStackTrace();
 									}
-								} else if(prauth.getRole() == "Artiste") {
+								} else if(prauth.getRole().equals("Artiste")) {
 									// log artiste
 									Artiste artiste = new Artiste(prauth);
 									try {
@@ -388,7 +388,7 @@ public class Accueil extends JFrame {
 									} catch(Exception ex) {
 										ex.printStackTrace();
 									}
-								} else if(prauth.getRole() == "Organisateur") {
+								} else if(prauth.getRole().equals("Organisateur")) {
 									// log organisateur
 									Organisateur orga = new Organisateur(prauth);
 									try {
@@ -398,7 +398,7 @@ public class Accueil extends JFrame {
 									} catch(Exception ex) {
 										ex.printStackTrace();
 									}
-								} else if(prauth.getRole() == "Gestionnaire") {
+								} else if(prauth.getRole().equals("Gestionnaire")) {
 									// log gestionnaire
 									Gestionnaire gest = new Gestionnaire(prauth);
 									try {

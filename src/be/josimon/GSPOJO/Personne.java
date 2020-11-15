@@ -96,5 +96,18 @@ public class Personne {
 		this.ville = ville;
 		this.email = email;
 		this.motDePasse = SHA.hash(motDePasse);
+	}
+	public Personne(int idPersonne, String nom, String prenom, String rue, int numRue, int cp, String ville,
+			 String email, String motDePasse) {
+		this.idPersonne = idPersonne;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.rue = rue;
+		this.numRue = numRue;
+		this.cp = cp;
+		this.ville = ville;
+		this.email = email;
+		this.motDePasse = motDePasse;
 	} 
+	
 }

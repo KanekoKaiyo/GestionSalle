@@ -49,6 +49,13 @@ public class OrgAcc extends JFrame {
 		contentPane.add(btnNewButton_1_1);
 		
 		JButton btnNewButton_1_1_1 = new JButton("Cr\u00E9er un Spectacle");
+		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OrgCrSpec frame2 = new OrgCrSpec(orga);
+				frame2.setVisible(true);
+				instance.dispose();
+			}
+		});
 		btnNewButton_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnNewButton_1_1_1.setBounds(10, 11, 286, 315);
 		contentPane.add(btnNewButton_1_1_1);
@@ -57,11 +64,6 @@ public class OrgAcc extends JFrame {
 		btnNewButton_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		btnNewButton_1_1_2.setBounds(10, 355, 286, 315);
 		contentPane.add(btnNewButton_1_1_2);
-		
-		JButton btnNewButton_1_1_1_1 = new JButton("Voir mes Spectacle");
-		btnNewButton_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		btnNewButton_1_1_1_1.setBounds(306, 11, 286, 315);
-		contentPane.add(btnNewButton_1_1_1_1);
 		
 		JButton btnNewButton_1_1_2_1 = new JButton("Voir mes repr\u00E9sentation");
 		btnNewButton_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 22));

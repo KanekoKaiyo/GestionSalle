@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GesViewRes extends JFrame {
+public class OrgViewRes extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	JFrame instance = this;
@@ -20,7 +20,7 @@ public class GesViewRes extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GesViewRes(Organisateur orga) {
+	public OrgViewRes(Organisateur orga) {
 		Object[][] res = new Object[2][100];
 		res = orga.getReservation();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

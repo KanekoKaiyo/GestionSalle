@@ -1,6 +1,8 @@
 package be.josimon.GSPOJO;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import be.josimon.GSDAO.AbstractDAOFactory;
 import be.josimon.GSDAO.DAO;
@@ -103,10 +105,18 @@ public class Reservation {
 			ex.printStackTrace();
 		}
 	}
-	public Object[][] getReservation() {
-		Object[][] allRes = new Object[2][100];
+	public List<PlanningSalle> getReservation() {
+		List<PlanningSalle> allRes = new ArrayList<PlanningSalle>();
 		PlanningSalle pls = this.emptySalle();
 		allRes = pls.getAllReservation();
 		return allRes;
+	}
+	public boolean payReservation() {
+		DAO<Reservation> resDAO = adf.getReservationDAO();
+		if(resDAO.Update(this) != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

@@ -1,9 +1,13 @@
 package be.josimon.GSPOJO;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.ibm.icu.util.Calendar;
 
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
 import be.josimon.GSDAO.AbstractDAOFactory;
 import be.josimon.GSDAO.DAO;
 
@@ -130,10 +134,17 @@ public class PlanningSalle {
 		int temp = (annee/4) - (annee/100) + (annee/400);
 		 return temp;
 	}
-	public Object[][] getAllReservation() {
-		Object[][] allRes = new Object[2][100];
+	public List<PlanningSalle> getAllReservation() {
+		List<PlanningSalle> allRes = new ArrayList<PlanningSalle>();
 		DAO<PlanningSalle> planDAO = adf.getPlanningSalleDAO();
-		allRes = planDAO.getPlanningOrga();
+		allRes = planDAO.getAll(this);
 		return allRes;
+	}
+	
+	public boolean Overlap(PlanningSalle datefin) {
+		Interval inter1 = new Interval(new DateTime(this.getDateDébutReservation()),new DateTime(this.getDateFinReservation()));
+		Interval inter2 = new Interval(new DateTime(datefin.getDateDébutReservation()), new DateTime(datefin.getDateFinReservation()));
+		
+		return inter1.overlaps(inter2);
 	}
 }

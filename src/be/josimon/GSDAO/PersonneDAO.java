@@ -28,7 +28,7 @@ public class PersonneDAO extends DAO<Personne>{
 	}
 
 
-	public List<Personne> getAll() {
+	public List<Personne> getAll(Personne obj) {
 		return null;
 	}
 
@@ -41,11 +41,8 @@ public class PersonneDAO extends DAO<Personne>{
 			PreparedStatement pS = this.connect.prepareStatement(sql);
 			pS.setString(1,obj.getEmail());
 			pS.setString(2, obj.getMotDePasse());
-			// String sql = "SELECT * FROM Personne WHERE EMAIL='"+obj.getEmail()+"' AND MOTDEPASSE='"+obj.getMotDePasse()+"'";
 			// on execute la requete sql
-			// ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 			ResultSet result = pS.executeQuery();
-
 			// On set les valeur sur l'ob
 			if(result.next()) {
 				pr.setIdPersonne(result.getInt("idPersonne"));
@@ -59,12 +56,17 @@ public class PersonneDAO extends DAO<Personne>{
 				pr.setEmail(result.getString("email"));
 				pr.setMotDePasse(result.getString("motDePasse"));
 			}
-			
 			return pr;
 		} catch(Exception ex) {
 			JOptionPane.showMessageDialog(null, ex.toString());
 			return null;
 		}
+	}
+
+	@Override
+	public List<Personne> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

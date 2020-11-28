@@ -1,6 +1,8 @@
 package be.josimon.GSPOJO;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Organisateur extends Personne{
 	// Constructor
@@ -54,10 +56,16 @@ public class Organisateur extends Personne{
 		return res;
 	}
 	
-	public Object[][] getReservation() {
-		Object[][] allRes = new Object[2][100];
+	public List<PlanningSalle> getReservation() {
+		List<PlanningSalle> allRes = new ArrayList<PlanningSalle>();
 		Reservation res = this.emptyRes();
 		allRes = res.getReservation();
 		return allRes;
+	}
+	
+	public boolean payReservation(int id) {
+		Reservation res = this.emptyRes();
+		res.setIdRéservation(id);
+		return res.payReservation();
 	}
 }

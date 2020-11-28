@@ -1,6 +1,13 @@
 package be.josimon.GSPOJO;
 
+import java.util.List;
+
+import be.josimon.GSDAO.AbstractDAOFactory;
+import be.josimon.GSDAO.DAO;
+
 public class Artiste extends Personne{
+	static AbstractDAOFactory adf = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	static DAO<Artiste> artDAO = adf.getArtisteDAO();
 	// Constructor
 	public Artiste() {
 		super();
@@ -17,6 +24,7 @@ public class Artiste extends Personne{
 		this.role = "Artiste";
 	}
 	
-
-	
+	public List<Artiste> getAll(){
+		return artDAO.getAll();
+	}
 }

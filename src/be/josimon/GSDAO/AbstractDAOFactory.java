@@ -19,6 +19,9 @@ public abstract class AbstractDAOFactory {
 	
 	public abstract DAO<PlanningSalle> getPlanningSalleDAO();
 	
+	public abstract DAO<Spectacle> getSpectacleDAO();
+	
+	public abstract DAO<Configuration> getConfigurationDAO();
 	
 	public static AbstractDAOFactory getFactory(int type){
 		switch(type){
@@ -28,4 +31,6 @@ public abstract class AbstractDAOFactory {
 				return null;
 		}
 	}
+
+
 }

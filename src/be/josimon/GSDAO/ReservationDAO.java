@@ -40,7 +40,22 @@ public class ReservationDAO extends DAO<Reservation>{
 	}
 	@Override
 	public Reservation Update(Reservation obj) {
-		return null;
+		try {
+			String sql = "UPDATE Reservation SET statut=? WHERE idReservation =?";
+			PreparedStatement pS = this.connect.prepareStatement(sql);
+			pS.setString(1,"Payé");
+			pS.setInt(2, obj.getIdRéservation());
+			int row = pS.executeUpdate();
+			if(row ==1) {
+				obj.setStatut("Payé");
+				return obj;
+			} else {
+				return null;
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 	@Override
 	public Reservation Find(Reservation obj) {
@@ -69,7 +84,7 @@ public class ReservationDAO extends DAO<Reservation>{
 		}
 	}
 	@Override
-	public List<Reservation> getAll() {
+	public List<Reservation> getAll(Reservation obj) {
 		List<Reservation> list = new ArrayList<Reservation>();
 		try {
 			String sql = "SELECT * FROM Reservation";
@@ -95,5 +110,11 @@ public class ReservationDAO extends DAO<Reservation>{
 			ex.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public List<Reservation> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

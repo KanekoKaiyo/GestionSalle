@@ -49,7 +49,13 @@ public class GestionnaireDAO extends DAO<Gestionnaire> {
 	}
 
 	@Override
+	public List<Gestionnaire> getAll(Gestionnaire obj) {
+		return null;
+	}
+
+	@Override
 	public List<Gestionnaire> getAll() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

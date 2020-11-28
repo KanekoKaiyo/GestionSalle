@@ -5,11 +5,13 @@ import java.sql.Connection;
 import be.josimon.GSConnect.SalleConnection;
 import be.josimon.GSPOJO.Artiste;
 import be.josimon.GSPOJO.Client;
+import be.josimon.GSPOJO.Configuration;
 import be.josimon.GSPOJO.Gestionnaire;
 import be.josimon.GSPOJO.Organisateur;
 import be.josimon.GSPOJO.Personne;
 import be.josimon.GSPOJO.PlanningSalle;
 import be.josimon.GSPOJO.Reservation;
+import be.josimon.GSPOJO.Spectacle;
 
 public class DAOFactory extends AbstractDAOFactory{
 	
@@ -40,5 +42,13 @@ public class DAOFactory extends AbstractDAOFactory{
 
 	public DAO<PlanningSalle> getPlanningSalleDAO() {
 		return new PlanningDAO(conn);
+	}
+
+	public DAO<Spectacle> getSpectacleDAO() {
+		return new SpectacleDAO(conn);
+	}
+
+	public DAO<Configuration> getConfigurationDAO() {
+		return new ConfigurationDAO(conn);
 	}
 }

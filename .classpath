@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/plugins/org.eclipse.ui.forms_3.10.0.v20200727-0948.jar" sourcepath="C:/dev/java/eclipse-2020.09/plugins/org.eclipse.ui.forms_3.10.0.v20200727-0948.jar"/>
 	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/workspace/GestionSalle/ojdbc7.jar"/>
 	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/workspace/GestionSalle/jcalendar-1.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/dev/java/eclipse-2020.09/workspace/GestionSalle/joda-time-2.10.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

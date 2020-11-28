@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.josimon.GSPOJO.PlanningSalle;
+import be.josimon.GSPOJO.Reservation;
 
 public class PlanningDAO extends DAO<PlanningSalle>{
 
@@ -49,21 +50,56 @@ public class PlanningDAO extends DAO<PlanningSalle>{
 		return null;
 	}
 
-	@Override
-	public List<PlanningSalle> getAll() {
+	public List<PlanningSalle> getAll(){
 		List<PlanningSalle> list = new ArrayList<PlanningSalle>();
 		try {
 			String sql = "SELECT * FROM PlanningSalle";
-			PreparedStatement pS = this.connect.prepareStatement(sql);
-			ResultSet result = pS.executeQuery();
-			while(result.next()) {
-				PlanningSalle pl = new PlanningSalle();
-				pl.setDateDébutReservation(result.getDate("datedebut"));
-				pl.setDateFinReservation(result.getDate("datefin"));
-				list.add(pl);
+			PreparedStatement ps = this.connect.prepareStatement(sql);
+			ResultSet result = ps.executeQuery();
+			
+			if(result.next()) {
+				PlanningSalle plan = new PlanningSalle();
+				plan.setIdPlanningSalle(result.getInt("idplanningsalle"));
+				plan.setDateDébutReservation(result.getDate("datedebut"));
+				plan.setDateFinReservation(result.getDate("datefin"));
+				
+				list.add(plan);
 			}
 			return list;
 		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public List<PlanningSalle> getAll(PlanningSalle obj) {
+		List<PlanningSalle> list = new ArrayList<PlanningSalle>();
+		try {
+			String sql = "SELECT * FROM PlanningSalle INNER JOIN Reservation ON PlanningSalle.idReservation = Reservation.idReservation WHERE Reservation.idPersonne=?";
+			PreparedStatement ps = this.connect.prepareStatement(sql);
+			ps.setInt(1, obj.getReservation().getOrga().getIdPersonne());
+			ResultSet result = ps.executeQuery();
+			
+			if(result.next()) {
+				PlanningSalle plan = new PlanningSalle();
+				Reservation res = new Reservation();
+				
+				res.setStatut(result.getString("statut"));
+				res.setAcompte(result.getDouble("acompte"));
+				res.setSolde(result.getDouble("solde"));
+				res.setPrix(result.getDouble("prix"));
+				res.setIdRéservation(result.getInt("idReservation"));
+				
+				plan.setReservation(res);
+				plan.setDateDébutReservation(result.getDate("datedebut"));
+				plan.setDateFinReservation(result.getDate("datefin"));
+				plan.setIdPlanningSalle(result.getInt("idplanningsalle"));
+				list.add(plan);
+			}
+			
+			return list;
+		}catch(Exception ex) {
 			ex.printStackTrace();
 			return null;
 		}

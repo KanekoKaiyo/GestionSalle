@@ -49,7 +49,13 @@ public class OrganisateurDAO extends DAO<Organisateur> {
 	}
 
 	@Override
+	public List<Organisateur> getAll(Organisateur obj) {
+		return null;
+	}
+
+	@Override
 	public List<Organisateur> getAll() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

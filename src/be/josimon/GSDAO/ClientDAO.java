@@ -49,12 +49,18 @@ public class ClientDAO extends DAO<Client>{
 
 
 	@Override
-	public List<Client> getAll() {
+	public List<Client> getAll(Client obj) {
 		return null;
 	}
 
 	@Override
 	public Client Find(Client obj) {
+		return null;
+	}
+
+	@Override
+	public List<Client> getAll() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

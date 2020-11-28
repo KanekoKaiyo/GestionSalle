@@ -113,6 +113,17 @@ public class OrgCrRes extends JFrame {
 		JButton btnvalid = new JButton("Valid\u00E9 et Payer");
 		btnvalid.setBounds(10, 630, 140, 40);
 		contentPane.add(btnvalid);
+		
+		JButton btnNewButton = new JButton("Quitter");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OrgAcc frame2 = new OrgAcc(orga);
+				instance.dispose();
+				frame2.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(1148, 630, 106, 40);
+		contentPane.add(btnNewButton);
 		calendarfin.setVisible(false);
 		btnvalid.setVisible(false);
 		
@@ -140,21 +151,7 @@ public class OrgCrRes extends JFrame {
 							calendarfin.setVisible(false);
 						} else {
 							temp.setDateDébutReservation(cal.getTime());
-							boolean test = false;
-							for(PlanningSalle ps : list) {
-								if(temp.getDateDébutReservation().after(ps.getDateDébutReservation()) && temp.getDateDébutReservation().after(ps.getDateFinReservation())) {
-									// Si la date de début de ma nouvelle reservation ce trouve dans un intervalle de reservation existant alors 
-									test = true;
-								}
-							}
-							if(test == true) {
-								// la reservation est impossible, on le notifie a l'utilisateur !
-								lbldatedebut.setText("La date n'est pas disponible");
-								calendarfin.setVisible(false);
-							} else {
-								// la reservation est possible, on affiche le deuxieme calendrier pour choisir la date de fin
 								calendarfin.setVisible(true);
-							}
 						}
 					}
 				});
@@ -172,11 +169,9 @@ public class OrgCrRes extends JFrame {
 					temp.setDateFinReservation(calfin.getTime());
 					boolean test = false;
 					for(PlanningSalle ps : list) {
-						/* Plus complexe => Il faut tester si le couple dateDébut-dateFin du nouvelle objet ne ce trouve dans aucun autre interface
-						* Explication : Si tempDateFin est avant psDateDébut OU Si tempDateDebut est aprés psDateFin alors pas dans l'intervale, et on test pour tout ce qui dans la db
-						*/
-						if(temp.getDateFinReservation().before(ps.getDateDébutReservation()) || temp.getDateDébutReservation().after(ps.getDateFinReservation())) {
+						if(temp.Overlap(ps)) {
 							test = true;
+							break;
 						}
 					}
 					if(test == true) {

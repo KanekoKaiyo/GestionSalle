@@ -42,6 +42,9 @@ public class OrgAcc extends JFrame {
 		JButton btnNewButton_1_1 = new JButton("Voir mes reservations");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				OrgViewRes frame2 = new OrgViewRes(orga);
+				frame2.setVisible(true);
+				instance.dispose();
 			}
 		});
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 32));

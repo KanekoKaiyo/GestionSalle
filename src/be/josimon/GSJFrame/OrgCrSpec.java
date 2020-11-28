@@ -1,7 +1,7 @@
 package be.josimon.GSJFrame;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -10,13 +10,20 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import be.josimon.GSPOJO.Artiste;
+import be.josimon.GSPOJO.Configuration;
 import be.josimon.GSPOJO.Organisateur;
+import be.josimon.GSPOJO.PlanningSalle;
+import be.josimon.GSPOJO.Reservation;
+import be.josimon.GSPOJO.Spectacle;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class OrgCrSpec extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -24,17 +31,25 @@ public class OrgCrSpec extends JFrame {
 	JFrame instance = this;
 	private JTable table = new JTable();
 	private JTextField tfTitre;
-	private JComboBox<Object> box;
-	private JComboBox<Object> box2;
+	private JComboBox<Object> boxart;
+	private JComboBox<Object> boxconfig;
 	private JLabel lblNewLabel_1;
 	private JTextField tfplmax;
 	private JLabel lblNewLabel_2;
 	private JButton btnValider;
 	private JButton btnleave;
+
 	/**
 	 * Create the frame.
 	 */
 	public OrgCrSpec(Organisateur orga) {
+		Spectacle spec = new Spectacle();
+		List<PlanningSalle> plan = new ArrayList<PlanningSalle>();
+		plan = orga.getReservation();
+		Artiste art = new Artiste();
+		List<Artiste> arts = art.getAll();
+		List<Configuration> confs = spec.getAllConfig();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -42,18 +57,17 @@ public class OrgCrSpec extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setTitle("Creer un spectacle");
+		Object[] toTable = new Object[7];
 		
-		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Date d\u00E9but", "Date Fin", "Statut"
-			}
-		));
-		table.setBounds(10, 11, 739, 659);
-		contentPane.add(table);
-		
+				new Object[][] {
+				},
+				new String[] {
+					"Date d\u00E9but", "Date Fin", "Statut", "Prix", "Acompte", "Solde", "idReservation"
+				}
+			));
+		contentPane.add(table.getTableHeader());	
+			
 		JLabel lblNewLabel = new JLabel("Titre :");
 		lblNewLabel.setBounds(759, 11, 74, 29);
 		contentPane.add(lblNewLabel);
@@ -63,33 +77,18 @@ public class OrgCrSpec extends JFrame {
 		contentPane.add(tfTitre);
 		tfTitre.setColumns(10);
 		
-		String[] test = {"test1","test2"};
-		box = new JComboBox<Object>(test);
-		box.setLocation(759, 51);
-		box.setSize(201, 29);
-		box.addItemListener(
-				new ItemListener() {
-					public void itemStateChanged(ItemEvent e) {
-						
-					}
-				}
-		);
-		getContentPane().add(box);
+		boxart = new JComboBox<Object>();
+		boxart.setLocation(759, 51);
+		boxart.setSize(201, 29);
+		getContentPane().add(boxart);
 		
-		box2 = new JComboBox<Object>(test);
-		box2.setLocation(759, 167);
-		box2.setSize(201, 29);
-		box2.addItemListener(
-				new ItemListener() {
-					public void itemStateChanged(ItemEvent e) {
-						
-					}
-				}
-		);
-		getContentPane().add(box2);
+		boxconfig = new JComboBox<Object>();
+		boxconfig.setLocation(759, 167);
+		boxconfig.setSize(201, 29);
+		getContentPane().add(boxconfig);
 		
 		lblNewLabel_1 = new JLabel("Place Max Par Client :");
-		lblNewLabel_1.setBounds(759, 103, 104, 14);
+		lblNewLabel_1.setBounds(712, 103, 151, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		tfplmax = new JTextField();
@@ -116,5 +115,80 @@ public class OrgCrSpec extends JFrame {
 		btnleave.setBounds(759, 647, 89, 23);
 		contentPane.add(btnleave);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 671, 659);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					"Date d\u00E9but", "Date Fin", "Statut", "Prix", "Acompte", "Solde", "idReservation"
+			}
+		));
+		
+		JButton btnNewButton = new JButton("Ajouter Artiste\r\n");
+		btnNewButton.setBounds(970, 54, 127, 23);
+		contentPane.add(btnNewButton);
+		
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for(PlanningSalle pls:plan) {
+			toTable[0] = pls.getDateDébutReservation();
+			toTable[1] = pls.getDateFinReservation();
+			toTable[2] = pls.getReservation().getStatut();
+			toTable[3] = pls.getReservation().getPrix();
+			toTable[4] = pls.getReservation().getAcompte();
+			toTable[5] = pls.getReservation().getSolde();
+			toTable[6] = pls.getReservation().getIdRéservation();
+			model.addRow(toTable);
+		}
+		
+		for(Artiste art1:arts) {
+			boxart.addItem(art1.getNom() + " " + art1.getPrenom());
+		}
+		
+		for(Configuration conf:confs) {
+			boxconfig.addItem(conf.getType());
+		}
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				spec.addArt(art);
+			}
+		});
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int idres = (int) table.getModel().getValueAt(table.getSelectedRow(),6);
+					String titre = tfTitre.getText();
+					int placemax = Integer.valueOf(tfplmax.getText());
+					if(spec.getListArtiste().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Vous devez selectionner au moins un artiste");
+					} else {
+						if(titre == null) {
+							JOptionPane.showMessageDialog(null, "Le titre ne peut pas être vide");
+						} else {
+							PlanningSalle plan = new PlanningSalle();
+							Reservation res = new Reservation();
+							res.setIdRéservation(idres);
+							plan.setReservation(res);
+							spec.setPlan(plan);
+							spec.setPlaceParClient(placemax);
+							spec.setTitre(titre);
+							spec.setConfig(new Configuration(boxconfig.getSelectedItem().toString()));
+							if(spec.create()) {
+								JOptionPane.showMessageDialog(null, "La création du spectacle a été effectué");
+							} else {
+								JOptionPane.showMessageDialog(null, "La création du spectacle a échoué");
+							}
+						}
+					}
+				} catch(Exception ex) {
+					JOptionPane.showMessageDialog(null, "Une erreur est survenue, verifié vos champs et selectionner bien une reservation.");
+				}
+			}
+		});
 	}
 }
